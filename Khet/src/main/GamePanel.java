@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import piece.Djed;
-import piece.Obelisk;
+import piece.Anubis;
+import piece.Sphinx;
 import piece.Pharaoh;
 import piece.Piece;
-import piece.Pyramid;
+import piece.Scarab;
+import piece.Mirror;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -52,30 +53,32 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void setPieces() {
 		//White team
-		pieces.add(new Djed (WHITE, 5, 5));
-		pieces.add(new Obelisk (WHITE, 4, 8));
-		pieces.add(new Obelisk (WHITE, 6, 5));
+		pieces.add(new Anubis (WHITE, 5, 5));
+		pieces.add(new Sphinx (WHITE, 4, 8));
+		pieces.add(new Sphinx (WHITE, 6, 5));
 		pieces.add(new Pharaoh (WHITE, 5, 8));
-		pieces.add(new Pyramid (WHITE, 4, 3));
-		pieces.add(new Pyramid (WHITE, 3, 4));
-		pieces.add(new Pyramid (WHITE, 3, 5));
-		pieces.add(new Pyramid (WHITE, 3, 8));
-		pieces.add(new Pyramid (WHITE, 8, 7));
-		pieces.add(new Pyramid (WHITE, 10, 5));
-		pieces.add(new Pyramid (WHITE, 10, 4));
+		pieces.add(new Mirror (WHITE, 4, 3));
+		pieces.add(new Mirror (WHITE, 3, 4));
+		pieces.add(new Mirror (WHITE, 3, 5));
+		pieces.add(new Mirror (WHITE, 3, 8));
+		pieces.add(new Mirror (WHITE, 8, 7));
+		pieces.add(new Mirror (WHITE, 10, 5));
+		pieces.add(new Mirror (WHITE, 10, 4));
+		pieces.add(new Scarab (WHITE, 6, 5));
 		
 		//Red team
-		pieces.add(new Djed (RED, 6, 4));
-		pieces.add(new Obelisk (RED, 5, 1));
-		pieces.add(new Obelisk (RED, 7, 1));
+		pieces.add(new Anubis (RED, 6, 4));
+		pieces.add(new Sphinx (RED, 5, 1));
+		pieces.add(new Sphinx (RED, 7, 1));
 		pieces.add(new Pharaoh (RED, 6, 1));
-		pieces.add(new Pyramid (RED, 3, 2));
-		pieces.add(new Pyramid (RED, 1, 4));
-		pieces.add(new Pyramid (RED, 1, 5));
-		pieces.add(new Pyramid (RED, 8, 1));
-		pieces.add(new Pyramid (RED, 8, 4));
-		pieces.add(new Pyramid (RED, 8, 5));
-		pieces.add(new Pyramid (RED, 7, 6));
+		pieces.add(new Mirror (RED, 3, 2));
+		pieces.add(new Mirror (RED, 1, 4));
+		pieces.add(new Mirror (RED, 1, 5));
+		pieces.add(new Mirror (RED, 8, 1));
+		pieces.add(new Mirror (RED, 8, 4));
+		pieces.add(new Mirror (RED, 8, 5));
+		pieces.add(new Mirror (RED, 7, 6));
+		pieces.add(new Scarab (RED, 5, 4));
 	}
 	
 	private void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target) {

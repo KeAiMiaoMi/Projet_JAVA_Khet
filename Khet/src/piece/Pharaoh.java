@@ -7,9 +7,9 @@ public class Pharaoh extends Piece{
 		super(color, col, row);
 		
 		if(color == GamePanel.WHITE) {
-			image = getImage("/piece/whitePharaoh0");
+			image = getImage("/piece/white_Pharaoh_0");
 		}else {
-			image = getImage("/piece/redPharaoh0");
+			image = getImage("/piece/red_Pharaoh_0");
 		}
 		
 	}
