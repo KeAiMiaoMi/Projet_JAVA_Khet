@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
 		//White team
 		pieces.add(new Anubis (WHITE, 5, 5));
 		pieces.add(new Sphinx (WHITE, 4, 8));
-		pieces.add(new Sphinx (WHITE, 6, 5));
+		pieces.add(new Sphinx (WHITE, 6, 8));
 		pieces.add(new Pharaoh (WHITE, 5, 8));
 		pieces.add(new Mirror (WHITE, 4, 3));
 		pieces.add(new Mirror (WHITE, 3, 4));
