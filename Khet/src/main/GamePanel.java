@@ -62,8 +62,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public void setPieces() {
 		//White team
 		pieces.add(new Anubis (WHITE, 5, 5));
-		pieces.add(new Sphinx (WHITE, 4, 8));
-		pieces.add(new Sphinx (WHITE, 6, 8));
+		pieces.add(new Mirror (WHITE, 4, 8));
+		pieces.add(new Mirror (WHITE, 6, 8));
 		pieces.add(new Pharoah (WHITE, 5, 8));
 		pieces.add(new Mirror (WHITE, 4, 3));
 		pieces.add(new Mirror (WHITE, 3, 4));
@@ -73,11 +73,12 @@ public class GamePanel extends JPanel implements Runnable{
 		pieces.add(new Mirror (WHITE, 10, 5));
 		pieces.add(new Mirror (WHITE, 10, 4));
 		pieces.add(new Scarab (WHITE, 6, 5));
+		pieces.add(new Sphinx (WHITE, 10, 8));
 		
 		//Red team
 		pieces.add(new Anubis (RED, 6, 4));
-		pieces.add(new Sphinx (RED, 5, 1));
-		pieces.add(new Sphinx (RED, 7, 1));
+		pieces.add(new Mirror (RED, 5, 1));
+		pieces.add(new Mirror (RED, 7, 1));
 		pieces.add(new Pharoah (RED, 6, 1));
 		pieces.add(new Mirror (RED, 3, 2));
 		pieces.add(new Mirror (RED, 1, 4));
@@ -87,6 +88,7 @@ public class GamePanel extends JPanel implements Runnable{
 		pieces.add(new Mirror (RED, 8, 5));
 		pieces.add(new Mirror (RED, 7, 6));
 		pieces.add(new Scarab (RED, 5, 4));
+		pieces.add(new Sphinx (RED, 1, 1));
 	}
 	
 	private void copyPieces(ArrayList<Piece> source, ArrayList<Piece> target) {
