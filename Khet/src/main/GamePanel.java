@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable{
 		pieces.add(new Anubis (WHITE, 5, 5));
 		pieces.add(new Sphinx (WHITE, 4, 8));
 		pieces.add(new Sphinx (WHITE, 6, 8));
-		pieces.add(new Pharaoh (WHITE, 5, 8));
+		pieces.add(new Pharoah (WHITE, 5, 8));
 		pieces.add(new Mirror (WHITE, 4, 3));
 		pieces.add(new Mirror (WHITE, 3, 4));
 		pieces.add(new Mirror (WHITE, 3, 5));
@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable{
 		pieces.add(new Anubis (RED, 6, 4));
 		pieces.add(new Sphinx (RED, 5, 1));
 		pieces.add(new Sphinx (RED, 7, 1));
-		pieces.add(new Pharaoh (RED, 6, 1));
+		pieces.add(new Pharoah (RED, 6, 1));
 		pieces.add(new Mirror (RED, 3, 2));
 		pieces.add(new Mirror (RED, 1, 4));
 		pieces.add(new Mirror (RED, 1, 5));
