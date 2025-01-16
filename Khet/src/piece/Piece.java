@@ -72,7 +72,7 @@ public class Piece {
 	}
 	
 	public boolean isWithinBoard(int targetCol, int targetRow) {
-		if(targetCol >= 0 && targetCol <= 10 && targetRow >= 0 && targetRow <= 8) {
+		if(targetCol >= 1 && targetCol <= 10 && targetRow >= 1 && targetRow <= 8) {
 			return true;
 		}
 		return false;
