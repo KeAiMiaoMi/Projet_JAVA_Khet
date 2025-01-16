@@ -11,12 +11,13 @@ public class Board {
 	final int MAX_COL = 10;
 	final int MAX_ROW = 8;
 	public static final int SQUARE_SIZE = 64;
+	public static final int HALF_SQUARE_SIZE = SQUARE_SIZE/2;
 	private BufferedImage boardImage;
 	
 	// Constructeur pour charger l'image du plateau
     public Board() {
         try {
-            // Remplacez "path_to_image.png" par le chemin de votre fichier
+            // Path to image
             boardImage = ImageIO.read(getClass().getResource("/board/GameBoard.png"));
         } catch (IOException e) {
             e.printStackTrace();
