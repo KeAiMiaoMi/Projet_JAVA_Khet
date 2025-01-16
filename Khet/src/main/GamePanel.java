@@ -1,17 +1,20 @@
 package main;
 
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import piece.Anubis;
 import piece.Sphinx;
-import piece.Pharaoh;
+import piece.Pharoah;
 import piece.Piece;
 import piece.Scarab;
 import piece.Mirror;
@@ -23,23 +26,28 @@ public class GamePanel extends JPanel implements Runnable{
 	final int FPS = 60;
 	Thread gameThread;
 	Board board = new Board();
-	
+	Mouse mouse = new Mouse();
 	
 	//Piece
 	public static ArrayList<Piece> pieces = new ArrayList<>();
 	public static ArrayList<Piece> simPieces = new ArrayList<>();
-	
+	Piece activeP; //to hold a piece
+	public static Piece switchingP;
 	
 	//Color
 	public static final int WHITE = 0;
 	public static final int RED = 1;
 	int currentColor = WHITE;
 	
-	
+	//Booleans
+	boolean canMove;
+	boolean validSquare;
 	
 	public GamePanel() {
 		setPreferredSize(new Dimension (WIDTH, HEIGHT));
 		setBackground(Color.black);
+		addMouseMotionListener(mouse);
+		addMouseListener(mouse);
 		
 		setPieces();
 		copyPieces(pieces, simPieces);
@@ -113,6 +121,69 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	private void update() {
 		
+		//Mouse button pressed
+		if(mouse.pressed) {
+			if(activeP == null) {
+				
+				//If the activeP is null, check if you can pick up a piece
+				for(Piece piece : simPieces) {
+					// if the mouse is on an ally piece, pick it up as activeP
+					if(piece.color == currentColor && 
+							piece.col == mouse.x/Board.SQUARE_SIZE &&
+							piece.row == mouse.y/Board.SQUARE_SIZE) {
+						activeP = piece;
+					} //if player's mouse on the piece so he can pick it up
+				}
+			}else { //means player is already holding a piece, simulate the move
+				simulate();
+			}
+		}
+		//Mouse button released
+		if(mouse.pressed == false) {
+			if(activeP != null) {
+				
+				if(validSquare) {
+					//copyPieces(simPieces, pieces);
+					activeP.updatePosition(); //adjust position
+					/*if(switchingP != null) {
+						switchingP.updatePosition();
+					}*/
+					changePlayer();
+				}else {
+					activeP.resetPosition();
+					activeP = null;
+				}
+			}
+		}
+	}
+
+	private void simulate() { //hypothetical move (thinking phase)
+		
+		canMove = false;
+		validSquare = false;
+		
+		//If a piece is being held, update its position
+		activeP.x = mouse.x - Board.HALF_SQUARE_SIZE;
+		activeP.y = mouse.y - Board.HALF_SQUARE_SIZE;
+		activeP.col = activeP.getCol(activeP.x);
+		activeP.row = activeP.getRow(activeP.y);
+		
+		//Check if the piece is hovering over a reachable square
+		if(activeP.canMove(activeP.col, activeP.row)) {
+			
+			canMove = true;
+			//switching();
+			validSquare = true;
+		}
+	}
+
+	private void changePlayer() {
+		if(currentColor == WHITE) {
+			currentColor = RED;
+		}else {
+			currentColor = WHITE;
+		}
+		activeP = null;
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -127,7 +198,29 @@ public class GamePanel extends JPanel implements Runnable{
 			p.draw(g2);
 		}
 		
+		if(activeP != null) {
+			if(canMove) {
+				g2.setColor(Color.yellow);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+				g2.fillRect(activeP.col * Board.SQUARE_SIZE, activeP.row * Board.SQUARE_SIZE,
+						Board.SQUARE_SIZE, Board.SQUARE_SIZE);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+				
+			}
+			//Draw activeP in the end so won't be hidden by the board or colored square
+			activeP.draw(g2);
+		}
+		
+		//status message
+		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g2.setFont(new Font("Book Antiqua", Font.PLAIN, 40));
+		g2.setColor(Color.white);
+		
+		if(currentColor == WHITE) {
+			g2.drawString("White's turn", 840, 550);
+		}else {
+			g2.drawString("Red's turn", 840, 250);
+		}
 	}
-	
 	
 }
