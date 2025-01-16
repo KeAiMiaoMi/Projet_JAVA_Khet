@@ -28,11 +28,13 @@ public class GamePanel extends JPanel implements Runnable{
 	Board board = new Board();
 	Mouse mouse = new Mouse();
 	
+	
 	//Piece
-	public static ArrayList<Piece> pieces = new ArrayList<>();
-	public static ArrayList<Piece> simPieces = new ArrayList<>();
+	public static ArrayList<Piece> pieces = new ArrayList<>(); //as backup list if player want to reset the changes
+	public static ArrayList<Piece> simPieces = new ArrayList<>(); //mainly use this array
 	Piece activeP; //to hold a piece
 	public static Piece switchingP;
+	
 	
 	//Color
 	public static final int WHITE = 0;
@@ -42,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable{
 	//Booleans
 	boolean canMove;
 	boolean validSquare;
+
 	
 	public GamePanel() {
 		setPreferredSize(new Dimension (WIDTH, HEIGHT));
@@ -147,9 +150,10 @@ public class GamePanel extends JPanel implements Runnable{
 				if(validSquare) {
 					//copyPieces(simPieces, pieces);
 					activeP.updatePosition(); //adjust position
-					/*if(switchingP != null) {
+					if(switchingP != null) {
 						switchingP.updatePosition();
-					}*/
+						switchingP = null;
+					}
 					changePlayer();
 				}else {
 					activeP.resetPosition();
@@ -158,11 +162,24 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 	}
-
+	
 	private void simulate() { //hypothetical move (thinking phase)
 		
 		canMove = false;
 		validSquare = false;
+		
+		//Need a reset piece for restoring the removed piece during simul
+		////////////////copyPieces(pieces, simPieces);
+		
+		//Reset switching piece's position
+		if(switchingP != null) {
+			switchingP.col = switchingP.preCol;
+			switchingP.x = switchingP.getX(switchingP.col);
+			switchingP.row = switchingP.preRow;
+			switchingP.y = switchingP.getY(switchingP.row);
+			switchingP = null;
+		}
+		
 		
 		//If a piece is being held, update its position
 		activeP.x = mouse.x - Board.HALF_SQUARE_SIZE;
@@ -174,11 +191,27 @@ public class GamePanel extends JPanel implements Runnable{
 		if(activeP.canMove(activeP.col, activeP.row)) {
 			
 			canMove = true;
-			//switching();
+			switching(activeP, switchingP);
 			validSquare = true;
 		}
 	}
-
+	///////////SWITCHING
+	private void switching(Piece activeP, Piece switchingP) {
+		if(switchingP != null && activeP != null) {
+			activeP.col = switchingP.col;
+			activeP.row = switchingP.row;
+			switchingP.col = activeP.preCol;
+			switchingP.row = activeP.preRow;
+			
+			activeP.x = activeP.getX(activeP.col);
+			activeP.y = activeP.getY(activeP.row);
+			switchingP.x = switchingP.getX(switchingP.col);
+			switchingP.y = switchingP.getY(switchingP.row);
+			
+		}
+	}
+	
+	
 	private void changePlayer() {
 		if(currentColor == WHITE) {
 			currentColor = RED;
@@ -211,6 +244,7 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			//Draw activeP in the end so won't be hidden by the board or colored square
 			activeP.draw(g2);
+			
 		}
 		
 		//status message
@@ -224,5 +258,6 @@ public class GamePanel extends JPanel implements Runnable{
 			g2.drawString("Red's turn", 840, 250);
 		}
 	}
+	
 	
 }
