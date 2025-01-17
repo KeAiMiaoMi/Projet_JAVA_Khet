@@ -11,6 +11,9 @@ public class Sphinx extends Piece{
 		}else {
 			image = getImage("/piece/red_Sphinx_0");
 		}
-		
+	}
+
+	public boolean canMove(int targetCol,int targetRow){
+		return false;
 	}
 }
