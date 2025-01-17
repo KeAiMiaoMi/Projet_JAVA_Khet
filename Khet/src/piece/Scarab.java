@@ -21,7 +21,9 @@ public class Scarab extends Piece{
 			if(Math.abs(targetCol - preCol) + Math.abs(targetRow - preRow) == 1 ||
 					Math.abs(targetCol - preCol) * Math.abs(targetRow - preRow) == 1) { //col:row ratio needs to be 1:1
 				if(isValidSquare(targetCol, targetRow)) {
-					return true;
+					if(isTileSameColor(targetCol, targetRow)) {
+						return true;
+					}
 				}
 			}
 			
