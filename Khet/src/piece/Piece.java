@@ -77,6 +77,20 @@ public class Piece {
 		}
 		return false;
 	}
+
+	public boolean isTileSameColor(int targetCol, int targetRow) {
+		if(this.color == GamePanel.RED) {
+			if (targetCol != 1 && (targetCol != 9 && (targetRow != 1 || targetRow != 8))) {
+				return true;
+			}
+		}else if(this.color == GamePanel.WHITE) {
+			if (targetCol != 10 && (targetCol != 2 && (targetRow != 1 || targetRow != 8))) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
 	public Piece getHittingP(int targetCol, int targetRow) {
 		for(Piece piece : GamePanel.simPieces) {
