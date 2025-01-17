@@ -80,11 +80,11 @@ public class Piece {
 
 	public boolean isTileSameColor(int targetCol, int targetRow) {
 		if(this.color == GamePanel.RED) {
-			if (targetCol != 1 && (targetCol != 9 && (targetRow != 1 || targetRow != 8))) {
+			if (targetCol != 1 && !(targetCol == 9 && (targetRow == 1 || targetRow == 8))) {
 				return true;
 			}
 		}else if(this.color == GamePanel.WHITE) {
-			if (targetCol != 10 && (targetCol != 2 && (targetRow != 1 || targetRow != 8))) {
+			if (targetCol != 10 && !(targetCol == 2 && (targetRow == 1 || targetRow == 8))) {
 				return true;
 			}
 		}
